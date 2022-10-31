@@ -1,5 +1,10 @@
 @extends('frontend.main_master')
 @section('content')
+    {{-- @php
+        $user = DB::table('user')
+            ->where('id', Auth::user()->id)
+            ->first();
+    @endphp --}}
     <div class="body-content">
         <div class="container">
             <div class="row">
