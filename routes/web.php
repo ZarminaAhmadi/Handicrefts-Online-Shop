@@ -68,4 +68,5 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
  Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brand');
 
  Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
+ Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
  });
