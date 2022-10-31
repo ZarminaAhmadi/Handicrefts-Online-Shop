@@ -74,6 +74,11 @@ Route::get("test",[BrandController::class,"index"]);
 
 
 
+ 
+ Route::get("test",[BrandController::class,"index"]);
+
+
+
 
 
  });
