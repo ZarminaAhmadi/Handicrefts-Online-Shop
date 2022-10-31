@@ -73,6 +73,11 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 
 
+ 
+ Route::get("test",[BrandController::class,"index"]);
+
+
+
 
 
  
