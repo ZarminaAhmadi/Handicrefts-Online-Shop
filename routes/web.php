@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
 
 use App\Http\Controllers\frontend\IndexController;
 
@@ -21,11 +22,10 @@ use App\Http\Controllers\frontend\IndexController;
 */
 
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
-	Route::get('/login', [AdminController::class, 'loginForm']);
-	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
+Route::get('/login', [AdminController::class, 'loginForm']);
+Route::post('/login',[AdminController::class, 'store'])->name('admin.login'); 
+
 });
-
-
 
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
@@ -69,6 +69,25 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
  Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
 
+ Route::get('/edit/{id}', [BrandController::class, 'BrandEdit'])->name('brand.edit');
 
- });
- 
+ Route::post('/update', [BrandController::class, 'BrandUpdate'])->name('brand.update');
+
+ Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('brand.delete');
+
+
+ }); 
+
+ // Admin Category All Routes
+ Route::prefix('category')->group(function(){
+
+ Route::get('/view', [CategoryController::class, 'CategoryView'])->name('all.category');
+
+ Route::post('/store', [CategoryController::class, 'CategoryStore'])->name('category.store');
+
+ Route::get('/edit/{id}', [CategoryController::class, 'BrandEdit'])->name('brand.edit');
+
+ Route::post('/update', [CategoryController::class, 'BrandUpdate'])->name('brand.update');
+
+
+ }); 

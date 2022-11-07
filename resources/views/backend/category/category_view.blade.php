@@ -14,7 +14,7 @@
 
                      <div class="box">
                          <div class="box-header with-border">
-                             <h3 class="box-title">Brand List</h3>
+                             <h3 class="box-title">Category List</h3>
                          </div>
                          <!-- /.box-header -->
                          <div class="box-body">
@@ -22,21 +22,20 @@
                                  <table id="example1" class="table table-bordered table-striped">
                                      <thead>
                                          <tr>
-                                             <th>Brand Eng</th>
-                                             <th>Brand Dari</th>
-                                             <th>Image</th>
+                                             <th>Category Icon</th>
+                                             <th>Category Eng</th>
+                                             <th>Category Dari</th>
                                              <th>Action</th>
 
                                          </tr>
                                      </thead>
                                      <tbody>
 
-                                         @foreach ($brands as $item)
+                                         @foreach ($category as $item)
                                              <tr>
-                                                 <td>{{ $item->brand_name_eng }}</td>
-                                                 <td>{{ $item->brand_name_dari }}</td>
-                                                 <td><img src="{{ asset($item->brand_image) }}"
-                                                         style="width:70px; height:40px;"></td>
+                                                 <td> <span><i class="{{ $item->category_icon }}"></i></span></td>
+                                                 <td>{{ $item->category_name_eng }}</td>
+                                                 <td>{{ $item->category_name_dari }}</td>
                                                  <td>
                                                      <a href="{{ route('brand.edit', $item->id) }}" class="btn btn-success"
                                                          title="Edit Data"><i class="fa fa-pencil"></i></a>
@@ -59,28 +58,28 @@
                  </div>
                  <!-- /.col -->
 
-                 {{-- ------------------- Add Brand Page -------------- --}}
+                 {{-- ------------------- Add Category Page -------------- --}}
 
                  <div class="col-4">
 
                      <div class="box">
                          <div class="box-header with-border">
-                             <h3 class="box-title">Add Brand </h3>
+                             <h3 class="box-title">Add Category</h3>
                          </div>
                          <!-- /.box-header -->
                          <div class="box-body">
                              <div class="table-responsive">
 
-                                 <form method="post" action="{{ route('brand.store') }}" enctype="multipart/form-data">
+                                 <form method="post" action="{{ route('category.store') }}">
                                      @csrf
 
 
                                      <div class="form-group">
-                                         <h5>Brand Name English <span class="text-danger">*</span></h5>
+                                         <h5>Category English <span class="text-danger">*</span></h5>
                                          <div class="controls">
-                                             <input type="text" name="brand_name_eng" class="form-control">
+                                             <input type="text" name="category_name_eng" class="form-control">
 
-                                             @error('brand_name_eng')
+                                             @error('category_name_eng')
                                                  <span class="text-danger">{{ $message }}</span>
                                              @enderror
 
@@ -89,27 +88,27 @@
 
 
                                      <div class="form-group">
-                                         <h5>Brand Name Dari <span class="text-danger">*</span></h5>
+                                         <h5>Category Dari <span class="text-danger">*</span></h5>
                                          <div class="controls">
-                                             <input type="text" name="brand_name_dari" class="form-control">
+                                             <input type="text" name="category_name_dari" class="form-control">
 
-                                             @error('brand_name_dari')
+                                             @error('category_name_dari')
                                                  <span class="text-danger">{{ $message }}</span>
                                              @enderror
                                          </div>
                                      </div>
-
 
                                      <div class="form-group">
-                                         <h5>Brand Image <span class="text-danger">*</span></h5>
+                                         <h5>Category Icon<span class="text-danger">*</span></h5>
                                          <div class="controls">
-                                             <input type="file" name="brand_image" class="form-control">
+                                             <input type="text" name="category_icon" class="form-control">
 
-                                             @error('brand_image')
+                                             @error('category_icon')
                                                  <span class="text-danger">{{ $message }}</span>
                                              @enderror
                                          </div>
                                      </div>
+
 
                                      <div class="text-xs-right">
                                          <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add New">
