@@ -23,7 +23,6 @@
                                      <thead>
                                          <tr>
                                              <th>Brand Eng</th>
-                                             <th>Brand Dari</th>
                                              <th>Image</th>
                                              <th>Action</th>
 
@@ -34,7 +33,6 @@
                                          @foreach ($brands as $item)
                                              <tr>
                                                  <td>{{ $item->brand_name_eng }}</td>
-                                                 <td>{{ $item->brand_name_dari }}</td>
                                                  <td><img src="{{ asset($item->brand_image) }}"
                                                          style="width:70px; height:40px;"></td>
                                                  <td>
@@ -84,18 +82,6 @@
                                                  <span class="text-danger">{{ $message }}</span>
                                              @enderror
 
-                                         </div>
-                                     </div>
-
-
-                                     <div class="form-group">
-                                         <h5>Brand Name Dari <span class="text-danger">*</span></h5>
-                                         <div class="controls">
-                                             <input type="text" name="brand_name_dari" class="form-control">
-
-                                             @error('brand_name_dari')
-                                                 <span class="text-danger">{{ $message }}</span>
-                                             @enderror
                                          </div>
                                      </div>
 

@@ -24,7 +24,7 @@
                                          <tr>
                                              <th>Category Icon</th>
                                              <th>Category Eng</th>
-                                             <th>Category Dari</th>
+
                                              <th>Action</th>
 
                                          </tr>
@@ -33,14 +33,18 @@
 
                                          @foreach ($category as $item)
                                              <tr>
-                                                 <td> <span><i class="{{ $item->category_icon }}"></i></span></td>
+                                                 <td><span><i class="{{ $item->category_icon }}"></i></span></td>
                                                  <td>{{ $item->category_name_eng }}</td>
-                                                 <td>{{ $item->category_name_dari }}</td>
-                                                 <td>
-                                                     <a href="{{ route('brand.edit', $item->id) }}" class="btn btn-success"
-                                                         title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                                     <a href="{{ route('brand.delete', $item->id) }}" class="btn btn-danger"
-                                                         title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>
+
+
+                                                 <td width="30%">
+                                                     <a href="{{ route('category.edit', $item->id) }}"
+                                                         class="btn btn-success" title="Edit Data"><i
+                                                             class="fa fa-pencil"></i></a>
+                                                     <a href="{{ route('category.delete', $item->id) }}"
+                                                         class="btn btn-danger button" title="Delete Data"
+                                                         data-toggle="tooltip" title='Delete' id="Delete"><i
+                                                             class="fa fa-trash"></i></a>
                                                  </td>
 
                                              </tr>
@@ -58,7 +62,7 @@
                  </div>
                  <!-- /.col -->
 
-                 {{-- ------------------- Add Category Page -------------- --}}
+                 {{-- ------------------- Add Category  Page -------------- --}}
 
                  <div class="col-4">
 
@@ -75,7 +79,7 @@
 
 
                                      <div class="form-group">
-                                         <h5>Category English <span class="text-danger">*</span></h5>
+                                         <h5>Category English<span class="text-danger">*</span></h5>
                                          <div class="controls">
                                              <input type="text" name="category_name_eng" class="form-control">
 
@@ -87,16 +91,8 @@
                                      </div>
 
 
-                                     <div class="form-group">
-                                         <h5>Category Dari <span class="text-danger">*</span></h5>
-                                         <div class="controls">
-                                             <input type="text" name="category_name_dari" class="form-control">
 
-                                             @error('category_name_dari')
-                                                 <span class="text-danger">{{ $message }}</span>
-                                             @enderror
-                                         </div>
-                                     </div>
+
 
                                      <div class="form-group">
                                          <h5>Category Icon<span class="text-danger">*</span></h5>
@@ -108,7 +104,6 @@
                                              @enderror
                                          </div>
                                      </div>
-
 
                                      <div class="text-xs-right">
                                          <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add New">
@@ -137,4 +132,63 @@
      <!-- /.content -->
 
      </div>
+
+     <script type="text/javascript">
+         function openModel(route, id) {
+             Swal.fire({
+                 title: 'Are you sure to delete this record?',
+                 icon: 'error',
+                 showCancelButton: true,
+                 confirmButtonColor: 'darkred',
+                 confirmButtonText: 'Yes delete it',
+                 showLoaderOnConfirm: true,
+                 preConfirm: (login) => {
+                     // function() {
+                     $.ajax({
+                         url: '16',
+                         type: 'DELETE',
+                         DataType: 'json',
+                         data: {
+                             "_token": "{{ csrf_token() }}"
+                         },
+                         success: function(response) {
+
+                             Swal.fire({
+                                 title: `ldkfjalkdjflak`,
+                                 icon: "success",
+                             })
+                         },
+                         error: function(error) {
+                             Swal.fire({
+                                 title: `ldkfjalkdjflak`,
+                                 icon: "error",
+                             })
+                         }
+                     });
+                     // });
+                     // return fetch(`/${route}/${id}`)
+                     //     .then(response => {
+                     //         console.log(response);
+                     //         // if (!response.ok) {
+                     //         //     throw new Error(response.statusText)
+                     //         // }
+                     //         // return response.json()
+                     //     })
+                     //     .catch(error => {
+                     //         // Swal.showValidationMessage(
+                     //         //     `Request failed: ${error}`
+                     //         // )
+                     //     })
+                 },
+                 allowOutsideClick: () => !Swal.isLoading()
+             }).then((result) => {
+                 // if (result.isConfirmed) {
+                 //     Swal.fire({
+                 //         title: `${result.value.login}'s avatar`,
+                 //         imageUrl: result.value.avatar_url
+                 //     })
+                 // }
+             })
+         }
+     </script>
  @endsection
