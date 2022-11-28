@@ -12,9 +12,9 @@ class SubCategoryController extends Controller
 {
     public function SubCategoryView()
     {
-        $subcategory = SubCategory::with('category')->get();
+        $subcategory = SubCategory::with('category:id,category_name_eng')->get();
         $categories = Category::orderBy('category_name_eng', 'ASC')->get();
-        $subcategory = SubCategory::latest()->get();
+        // $subcategory = SubCategory::latest()->get();
         return view('backend.category.subcategory_view', compact('subcategory', 'categories'));
     }
 

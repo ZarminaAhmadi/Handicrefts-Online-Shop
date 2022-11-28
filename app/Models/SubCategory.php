@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SubCategory extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
 
     protected $fillable = [
         'category_id',
@@ -22,6 +24,6 @@ class SubCategory extends Model
     }
     public function product()
     {
-        return $this->belongsTo(product::class);
+        return $this->hasMany(product::class);
     }
 }

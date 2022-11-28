@@ -79,6 +79,7 @@
 
     <!-- // CK EDITOR  -->
     <script src="{{ asset('../assets/vendor_components/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('../assets/js/sweetalert2') }}"></script>
     <script src="{{ asset('../assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js') }}"></script>
     <script src="{{ asset('backend/js/pages/editor.js') }}"></script>
 

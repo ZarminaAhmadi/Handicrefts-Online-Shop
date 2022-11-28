@@ -22,7 +22,9 @@ class Admin extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array
+     *
      */
+    protected $guard = 'admin';
     protected $fillable = [
         'name',
         'email',

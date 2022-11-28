@@ -1,7 +1,9 @@
 <?php
 
+
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
@@ -11,7 +13,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SlidshowController;
 
 use App\Http\Controllers\frontend\IndexController;
-
+use App\Http\Controllers\SubCatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,22 +31,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function ()
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
+Route::middleware(['auth: admin'])->group(function () {
 
-Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    return view('admin.index');
-})->name('dashboard');
-//Admin All Routes
-Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
-Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
+    Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+        return view('admin.index');
+    })->name('dashboard')->middleware('auth:admin');
+    //Admin All Routes
+    Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
-Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+    Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
 
-Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
+    Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
 
-Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
+    Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
 
-Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
+    Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
+
+    Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
+});    // end middleware admin
+
+
 
 
 //User All Routes
@@ -90,6 +97,7 @@ Route::prefix('category')->group(function () {
     Route::post('/update', [CategoryController::class, 'CategorydUpdate'])->name('category.update');
 
     Route::get('/delete/{id}', [CategoryController::class, 'CategoryDelete'])->name('category.delete');
+    Route::resource('sub_cat', SubCatController::class);
 
     // Admin SubCategory All Routes
 
@@ -121,20 +129,41 @@ Route::prefix('product')->group(function () {
     Route::get('/add', [ProductController::class, 'AddProduct'])->name('add-product');
 
     Route::post('/store', [ProductController::class, 'StoreProduct'])->name('product-store');
+
+    Route::get('/manage', [ProductController::class, 'ManageProduct'])->name('manage-product');
+
+    Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
+
+    Route::post('/data/update', [ProductController::class, 'ProductDataUpdate'])->name('product-update');
+
+    Route::post('/image/update/', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+
+    Route::post('/thambnail/update', [ProductController::class, 'ThambnailImageUpdate'])->name('update-product-thambnail');
+
+    Route::get('/multiimg/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product.multiimg.delete');
+
+    Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('product.inactive');
+
+    Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
 });
+
 
 
 // Admin Slidshow All Routes
 
 Route::prefix('slidshow')->group(function () {
 
-    Route::get('/view', [SlidshowController::class, 'SliderView'])->name('manage-slidshow');
+    Route::get('/view', [SlidshowController::class, 'SlidshowView'])->name('manage-slidshow');
 
-    Route::post('/store', [BrandController::class, 'BrandStore'])->name('brand.store');
+    Route::post('/store', [SlidshowController::class, 'SlidshowStore'])->name('slidshow.store');
 
-    Route::get('/edit/{id}', [BrandController::class, 'BrandEdit'])->name('brand.edit');
+    Route::get('/edit/{id}', [SlidshowController::class, 'SlidshowEdit'])->name('slidshow.edit');
 
-    Route::post('/update', [BrandController::class, 'BrandUpdate'])->name('brand.update');
+    Route::post('/update', [SlidshowController::class, 'SlidshowUpdate'])->name('slidshow.update');
 
-    Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('brand.delete');
+    Route::get('/delete/{id}', [SlidshowController::class, 'SlidshowDelete'])->name('slidshow.delete');
+
+    Route::get('/inactive/{id}', [SlidshowController::class, 'SlidshowInactive'])->name('slidshow.inactive');
+
+    Route::get('/active/{id}', [SlidshowController::class, 'SlidshowActive'])->name('slidshow.active');
 });

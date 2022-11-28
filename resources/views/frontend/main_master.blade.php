@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
 
+
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
 
@@ -64,6 +65,7 @@
     <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert2.js') }}"></script>
 
 
     <script type="text/javascript " src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
