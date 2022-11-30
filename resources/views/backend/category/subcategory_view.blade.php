@@ -33,21 +33,21 @@
 
                                          @foreach ($subcategory as $item)
                                              <tr>
-                                                 <<td> {{ $item->category_name_eng }} </td>
-                                                     <td>{{ $item->subcategory_name_eng }}</td>
-                                                     <td>{{ $item->gender }}</td>
+                                                 <td> {{ $item->category_id }} </td>
+                                                 <td>{{ $item->subcategory_name_eng }}</td>
+                                                 <td>{{ $item->gender }}</td>
 
 
 
-                                                     <td width="30%">
-                                                         <a href="{{ route('subcategory.edit', $item->id) }}"
-                                                             class="btn btn-success" title="Edit Data"><i
-                                                                 class="fa fa-pencil"></i>
-                                                         </a>
-                                                         <a href="{{ route('subcategory.delete', $item->id) }}"
-                                                             class="btn btn-danger" title="Delete Data" id="delete"><i
-                                                                 class="fa fa-trash"></i></a>
-                                                     </td>
+                                                 <td width="30%">
+                                                     <a href="{{ route('subcategory.edit', $item->id) }}"
+                                                         class="btn btn-success" title="Edit Data"><i
+                                                             class="fa fa-pencil"></i>
+                                                     </a>
+                                                     <a href="{{ route('subcategory.delete', $item->id) }}"
+                                                         class="btn btn-danger" title="Delete Data" id="delete"><i
+                                                             class="fa fa-trash"></i></a>
+                                                 </td>
 
                                              </tr>
                                          @endforeach
@@ -126,13 +126,13 @@
                                  </div>
 
                              </div>
+
+                             <div class="text-xs-right">
+                                 <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add New">
+                             </div>
                          </div>
 
 
-
-                         <div class="text-xs-right">
-                             <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add New">
-                         </div>
                          </form>
 
                      </div>

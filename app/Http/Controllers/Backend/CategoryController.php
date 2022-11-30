@@ -44,11 +44,10 @@ class CategoryController extends Controller
         return view('backend.category.category_edit', compact('category')); //we pass here the data that wr get from DB
     }
 
-    public function CategorydUpdate(Request $request)
+    public function CategorydUpdate(Request $request, $id)
     {
-        $cat_id = $request->id;
 
-        Category::findOrFail($cat_id)->Update([
+        Category::findOrFail($id)->Update([
             'category_name_eng' => $request->category_name_eng,
 
             'category_icon' => $request->category_icon,

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class slidshow extends Model
 {
     use HasFactory;
+    protected $fillable = [
+
+        'slidshow_img',
+        'title',
+        'description',
+        'status',
+    ];
 }

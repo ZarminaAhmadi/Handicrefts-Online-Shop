@@ -31,25 +31,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function ()
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::middleware(['auth: admin'])->group(function () {
+//Route::middleware(['auth: admin'])->group(function () {
 
 
-    Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-        return view('admin.index');
-    })->name('dashboard')->middleware('auth:admin');
-    //Admin All Routes
-    Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+    return view('admin.index');
+})->name('dashboard')->middleware('auth:admin');
+//Admin All Routes
+Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
-    Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
+Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
 
-    Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
 
-    Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
+Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');
 
-    Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
+Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
 
-    Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
-});    // end middleware admin
+Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
+//});    // end middleware admin
 
 
 
@@ -94,7 +94,7 @@ Route::prefix('category')->group(function () {
 
     Route::get('/edit/{id}', [CategoryController::class, 'CategorydEdit'])->name('category.edit');
 
-    Route::post('/update', [CategoryController::class, 'CategorydUpdate'])->name('category.update');
+    Route::post('/update/{id}', [CategoryController::class, 'CategorydUpdate'])->name('category.update');
 
     Route::get('/delete/{id}', [CategoryController::class, 'CategoryDelete'])->name('category.delete');
     Route::resource('sub_cat', SubCatController::class);
@@ -119,8 +119,7 @@ Route::prefix('category')->group(function () {
 
     Route::get('/sub-subcategory/ajax/{subcategory_id}', [SubCategoryController::class, 'GetSubSubCategory']);
 
-    Route::post('/sub/update', [SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subsubcategory.update');
-});
+
 
 // Admin Products All Routes
 
@@ -145,6 +144,8 @@ Route::prefix('product')->group(function () {
     Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('product.inactive');
 
     Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
+
+    Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
 });
 
 

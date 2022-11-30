@@ -25,7 +25,7 @@
          <ul class="sidebar-menu" data-widget="tree">
 
              <li class="{{ $route == 'dashboard' ? 'active' : '' }}">
-                 <a href="{{ url('admin/dashboard') }}">
+                 <a href="{{ url('dashboard') }}">
                      <i data-feather="pie-chart"></i>
                      <span>Dashboard</span>
                  </a>
