@@ -61,19 +61,6 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="form-group">
-                                        <h5>SubCategory Hindi <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="subcategory_name_dari" class="form-control"
-                                                value="{{ $subcategory->subcategory_name_dari }}">
-                                            @error('subcategory_name_dari')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-
                                     <div class="text-xs-right">
                                         <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update">
                                     </div>

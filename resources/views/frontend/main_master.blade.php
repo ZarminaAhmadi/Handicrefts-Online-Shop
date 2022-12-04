@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eng">
 
 <head>
     <!-- Meta -->
@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-    <title> Handicrafts Online Shop</title>
+    <title>@yield('title') </title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -92,6 +92,38 @@
             }
         @endif
     </script>
+    {{-- End Product View with Modal --}}
+
+    <script>
+        // Start Add To Cart Product 
+        function addToCart() {
+            var product_name = $('#pname').text();
+            var id = $('#product_id').val();
+            var color = $('#color option:selected').text();
+            var size = $('#size option:selected').text();
+            var quantity = $('#qty').val();
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    color: color,
+                    size: size,
+                    quantity: quantity,
+                    product_name: product_name
+                },
+                url: "/cart/data/store/" + id,
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        }
+        // End Add To Cart Product
+    </script>
+
+
+
+
+
 
 </body>
 

@@ -11,9 +11,12 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SlidshowController;
-
+    
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\SubCatController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Backend\UnderSubController;
+use App\Models\UnderSubCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +29,7 @@ use App\Http\Controllers\SubCatController;
 |
 */
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', [AdminController::class, 'loginForm']);
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
@@ -34,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function ()
 //Route::middleware(['auth: admin'])->group(function () {
 
 
-Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin/dashboard', function () {
     return view('admin.index');
 })->name('dashboard')->middleware('auth:admin');
 //Admin All Routes
@@ -86,9 +89,9 @@ Route::prefix('brand')->group(function () {
 });
 
 // Admin Category All Routes
-Route::prefix('category')->group(function () {
 
-    Route::get('/view', [CategoryController::class, 'CategoryView'])->name('all.category');
+Route::group(['category' => 'admin'], function () {
+    Route::get('/category/view', [CategoryController::class, 'CategoryView'])->name('all.category');
 
     Route::post('/store', [CategoryController::class, 'CategoryStore'])->name('category.store');
 
@@ -107,10 +110,15 @@ Route::prefix('category')->group(function () {
 
     Route::get('/sub/edit/{id}', [SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit');
 
-    Route::post('/sub/update', [SubCategoryController::class, 'SubCategorydUpdate'])->name('subcategory.update');
+    Route::post('/sub/update', [SubCategoryController::class, 'SubCategoryUpdate'])->name('subcategory.update');
 
     Route::get('/sub/delete/{id}', [SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete');
 
+    Route::get('/under_sub', [UnderSubController::class, 'UnderSubCategoryView'])->name('under_sub.all');
+
+    Route::post('/under_sub', [UnderSubController::class, 'SubCategoryStore'])->name('under_sub.store');
+
+    Route::get('/under_sub{id}', [SubCategoryController::class, 'UnderSubCategoryEdit'])->name('subcategory.edit');
     // Admin Sub->SubCategory All Routes
 
     Route::get('/sub/sub/view', [SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
@@ -118,6 +126,42 @@ Route::prefix('category')->group(function () {
     Route::get('/subcategory/ajax/{category_id}', [SubCategoryController::class, 'GetSubCategory']);
 
     Route::get('/sub-subcategory/ajax/{subcategory_id}', [SubCategoryController::class, 'GetSubSubCategory']);
+});
+// Route::prefix('category')->group(function () {
+
+//     Route::get('/view', [CategoryController::class, 'CategoryView'])->name('all.category');
+
+//     Route::post('/store', [CategoryController::class, 'CategoryStore'])->name('category.store');
+
+//     Route::get('/edit/{id}', [CategoryController::class, 'CategorydEdit'])->name('category.edit');
+
+//     Route::post('/update/{id}', [CategoryController::class, 'CategorydUpdate'])->name('category.update');
+
+//     Route::get('/delete/{id}', [CategoryController::class, 'CategoryDelete'])->name('category.delete');
+//     Route::resource('sub_cat', SubCatController::class);
+
+//     // Admin SubCategory All Routes
+
+//     Route::get('/sub/view', [SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory');
+
+//     Route::post('/sub/store', [SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store');
+
+//     Route::get('/sub/edit/{id}', [SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit');
+
+//     Route::post('/sub/update', [SubCategoryController::class, 'SubCategorydUpdate'])->name('subcategory.update');
+
+//     Route::get('/sub/delete/{id}', [SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete');
+
+//     // Admin Sub->SubCategory All Routes
+
+//     Route::get('/sub/sub/view', [SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
+
+//     Route::get('/subcategory/ajax/{category_id}', [SubCategoryController::class, 'GetSubCategory']);
+
+//     Route::get('/sub-subcategory/ajax/{subcategory_id}', [SubCategoryController::class, 'GetSubSubCategory']);
+// });
+
+
 
 
 
@@ -168,3 +212,8 @@ Route::prefix('slidshow')->group(function () {
 
     Route::get('/active/{id}', [SlidshowController::class, 'SlidshowActive'])->name('slidshow.active');
 });
+
+/////// Frontend All Routes //////////
+// Frontend Product Details Page url
+
+Route::get('product/details/{id}', [IndexController::class, 'ProductDetails']);

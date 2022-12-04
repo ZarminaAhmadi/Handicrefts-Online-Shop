@@ -218,6 +218,30 @@
                                                         <!-- // End SubCategory Foreach -->
 
 
+
+
+                                                        <!--   // Get UnderSubCategory Table Data -->
+                                                        @php
+                                                            $undersubcategories = App\Models\UnderSubCategory::where('subcategory_id', $subcategory->id)
+                                                                ->orderBy('name', 'ASC')
+                                                                ->get();
+                                                        @endphp
+
+                                                        @foreach ($undersubcategories as $undersubcategory)
+                                                            <ul class="links">
+                                                                <li><a href="#">{{ $undersubcategory->name }}</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        @endforeach
+                                                        <!-- // End UnderSubCategory Foreach -->
+
+
+
+
+
+
+
                                                         <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
                                                             <img class="img-responsive"
                                                                 src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}"

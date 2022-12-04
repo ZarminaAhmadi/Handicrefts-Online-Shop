@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Slidshow;
+use App\Models\SubCategory;
 use App\Models\Product;
+use App\Models\MultiImg;
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
@@ -19,8 +21,13 @@ class IndexController extends Controller
 
         $products = Product::where('status', 1)->orderBy('id', 'DESC')->limit(6)->get();
         $slidshow = Slidshow::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
-        $categories = Category::orderBy('category_name_eng', 'ASC')->get();
-        return view('frontend.index', compact('categories', 'slidshow', 'products'));
+
+
+        $categories = Category::where('category_name_eng', 'ASC')->get();
+        $subcategories = SubCategory::where('category_id', $categories->id)
+            ->orderBy('subcategory_name_eng', 'ASC')
+            ->get();
+        return view('frontend.index', compact('slidshow', 'categories', 'subcategories', 'products'));
     }
 
     public function UserLogout()
@@ -87,4 +94,9 @@ class IndexController extends Controller
         }
     } //end method
 
+    public function ProductDetails($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('frontend.product.product_details', compact('product'));
+    }
 }

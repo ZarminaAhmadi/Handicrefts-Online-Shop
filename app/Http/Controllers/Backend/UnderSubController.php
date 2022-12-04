@@ -3,50 +3,46 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\SubCategory;
-use App\Models\Category;
 use App\Models\UnderSubCategory;
+use Illuminate\Http\Request;
 
-class SubCategoryController extends Controller
+class UnderSubController extends Controller
 {
-    public function SubCategoryView()
+
+    public function UnderSubCategoryView()
     {
-        $subcategory = SubCategory::all();
-        $categories = Category::all();
+        $under_sub = UnderSubCategory::all();
+        $subcategory = SubCategory::orderBy('subcategory_name_eng', 'ASC')->get();
         // $subcategory = SubCategory::latest()->get();
-        return view('backend.category.subcategory_view', compact('subcategory', 'categories'));
+        return view('backend.category.under_subcategory', compact('under_sub', 'subcategory'));
     }
 
     public function SubCategoryStore(Request $request)
     {
 
         $request->validate([
-            'subcategory_name_eng' => 'required',
-            'gender' => 'required',
-            'category_id' => 'required'
+            'name' => 'required',
+            'sub_category_id' => 'required'
 
 
         ], [
-            'category_id.required' => 'Please select Any option',
-            'subcategory_name_eng.required' => 'Input SubCategory English Name',
+            'sub_category_id.required' => 'Please select Any option',
+            'name.required' => 'Input UnderSubCategory English Name',
 
-            'gender.required' => "please fill the gender Fields"
         ]);
 
 
 
-        SubCategory::insert([
-            'category_id' => $request->category_id,
-            'subcategory_name_eng' => $request->subcategory_name_eng,
-            'gender' => $request->gender,
-
+        UnderSubCategory::insert([
+            'sub_category_id' => $request->sub_category_id,
+            'name' => $request->name,
 
 
         ]);
 
         $notification = array(
-            'message' => 'SubCategory Inserted Successfully',
+            'message' => 'UnderSubCategory Inserted Successfully',
             'alert-type' => 'success'
         );
 
@@ -55,17 +51,18 @@ class SubCategoryController extends Controller
 
 
 
-    public function SubCategoryEdit($id)
+    public function UnderSubCategoryEdit($id)
     {
-        $categories = Category::orderBy('category_name_eng', 'ASC')->get();
+        $categories = subCategory::orderBy('name', 'ASC')->get();
         $subcategory = SubCategory::findOrFail($id);
-        return view('backend.category.subcategory_edit', compact('subcategory', 'categories'));
+        return view('backend.category.under_subcategory_edit', compact('subcategory', 'categories'));
     }
 
     public function SubCategoryUpdate(Request $request)
     {
 
         $subcat_id = $request->id;
+
         SubCategory::findOrFail($subcat_id)->update([
             'category_id' => $request->category_id,
             'subcategory_name_eng' => $request->subcategory_name_eng,

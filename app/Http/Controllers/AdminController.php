@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function __construct(StatefulGuard $guard)
     {
         $this->guard = $guard;
-         
+
     }
 
     public function loginForm(){
@@ -61,9 +61,10 @@ class AdminController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        return $this->loginPipeline($request)->then(function ($request) {
-            return app(LoginResponse::class);
-        });
+        return redirect()->route('dashboard');
+        // return $this->loginPipeline($request)->then(function ($request) {
+        //     return app(LoginResponse::class);
+        // });
     }
 
     /**

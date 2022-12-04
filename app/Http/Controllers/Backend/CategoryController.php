@@ -8,6 +8,11 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function __constract()
+    {
+        $this->middleware(['auth','admin']);
+    }
+
     public function CategoryView()
     {
         $category = Category::latest()->get();

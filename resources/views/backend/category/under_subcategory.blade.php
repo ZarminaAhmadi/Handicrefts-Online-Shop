@@ -15,7 +15,7 @@
 
                      <div class="box">
                          <div class="box-header with-border">
-                             <h3 class="box-title">SubCategory List</h3>
+                             <h3 class="box-title">UnderSub List</h3>
                          </div>
                          <!-- /.box-header -->
                          <div class="box-body">
@@ -23,39 +23,35 @@
                                  <table id="example1" class="table table-bordered table-striped">
                                      <thead>
                                          <tr>
-                                             <th>Category</th>
-                                             <th>SubCategory Eng</th>
-                                             <th>Gender</th>
+
+
+                                             <th>name</th>
+                                             <th>SubCategory</th>
                                              <th>Action</th>
+
 
                                          </tr>
                                      </thead>
                                      <tbody>
-
-                                         @foreach ($subcategory as $item)
+                                         @foreach ($under_sub as $item)
                                              <tr>
-                                                 <td> {{ $item->category->category_name_eng }} </td>
-                                                 <td>{{ $item->subcategory_name_eng }}</td>
-                                                 <td>{{ $item->gender }}</td>
-
-
-
+                                                 <td> {{ $item->name }} </td>
+                                                 <td> {{ $item->subcategory->subcategory_name_eng }} </td>
                                                  <td width="30%">
                                                      <a href="{{ route('subcategory.edit', $item->id) }}"
                                                          class="btn btn-success" title="Edit Data"><i
                                                              class="fa fa-pencil"></i>
                                                      </a>
-
                                                      <a href="{{ route('subcategory.delete', $item->id) }}"
-                                                         class="btn btn-danger button" title="Delete Data"
-                                                         data-toggle="tooltip" title='Delete' id="Delete"><i
+                                                         class="btn btn-danger" title="Delete Data" id="delete"><i
                                                              class="fa fa-trash"></i></a>
-
-                                                     <a onclick="confirmation(event)"></i></a>
                                                  </td>
+
 
                                              </tr>
                                          @endforeach
+
+
                                      </tbody>
 
                                  </table>
@@ -81,21 +77,21 @@
                          <div class="box-body">
                              <div class="table-responsive">
 
-                                 <form method="POST" action="{{ route('subcategory.store') }}">
+                                 <form method="POST" action="{{ route('under_sub.store') }}">
                                      @csrf
 
                                      <div class="form-group">
                                          <h5>Category Select <span class="text-danger">*</span></h5>
                                          <div class="controls">
-                                             <select name="category_id" class="form-control">
-                                                 <option value="" selected="" disabled="">Select Category
+                                             <select name="sub_category_id" class="form-control">
+                                                 <option value="" selected="" disabled="">Select SubCategory
                                                  </option>
-                                                 @foreach ($categories as $category)
-                                                     <option value="{{ $category->id }}">{{ $category->category_name_eng }}
+                                                 @foreach ($subcategory as $sub)
+                                                     <option value="{{ $sub->id }}">{{ $sub->subcategory_name_eng }}
                                                      </option>
                                                  @endforeach
                                              </select>
-                                             @error('category_id')
+                                             @error('sub_category_id')
                                                  <span class="text-danger">{{ $message }}</span>
                                              @enderror
                                          </div>
@@ -105,35 +101,16 @@
 
 
                              <div class="form-group">
-                                 <h5>SubCategory English<span class="text-danger">*</span></h5>
+                                 <h5>underSubCategory <span class="text-danger">*</span></h5>
                                  <div class="controls">
-                                     <input type="text" name="subcategory_name_eng" class="form-control">
+                                     <input type="text" name="name" class="form-control">
 
-                                     @error('subcategory_name_eng')
+                                     @error('name')
                                          <span class="text-danger">{{ $message }}</span>
                                      @enderror
                                  </div>
                              </div>
-                             <div class="form-group">
-                                 <h5>Category Select <span class="text-danger">*</span></h5>
-                                 <div class="controls">
-                                     <select name="gender" class="form-control">
-                                         <option value="male"> male
-                                         </option>
 
-                                         <option value="female">female
-                                         </option>
-
-                                         <option value="none">none
-                                         </option>
-
-                                     </select>
-                                     @error('category_id')
-                                         <span class="text-danger">{{ $message }}</span>
-                                     @enderror
-                                 </div>
-
-                             </div>
 
                              <div class="text-xs-right">
                                  <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add New">

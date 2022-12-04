@@ -52,6 +52,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the role that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
