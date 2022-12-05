@@ -41,4 +41,14 @@ class product extends Model
     {
         return $this->hasMany(Brand::class);
     }
+
+    public function multiImg()
+    {
+        return $this->hasMany(MultiImg::class, 'product_id');
+    }
+
+    public function slidshow()
+    {
+        return $this->belongsTo(slidshow::class, 'product_id');
+    }
 }

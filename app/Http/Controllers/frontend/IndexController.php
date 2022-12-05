@@ -23,11 +23,18 @@ class IndexController extends Controller
         $slidshow = Slidshow::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
 
 
-        $categories = Category::where('category_name_eng', 'ASC')->get();
-        $subcategories = SubCategory::where('category_id', $categories->id)
-            ->orderBy('subcategory_name_eng', 'ASC')
-            ->get();
-        return view('frontend.index', compact('slidshow', 'categories', 'subcategories', 'products'));
+        $categories = Category::orderBy('category_name_eng', 'ASC')->get();
+        // dd($categories);
+        $subcategories = array();
+        foreach ($categories as $category) {
+
+            $subcategories[] = SubCategory::where('category_id', $category->id)->orderBy('subcategory_name_eng', 'ASC')->get();
+        }
+        // dd($subcategories);
+        $featured = Product::where('featured', 1)->orderBy('id', 'DESC')->limit(6)->get();
+        $hot_deals = Product::where('hot_deals', 1)->orderBy('id', 'DESC')->limit(3)->get();
+
+        return view('frontend.index', compact('slidshow', 'categories', 'subcategories', 'products', 'featured', 'hot_deals'));
     }
 
     public function UserLogout()
@@ -97,6 +104,7 @@ class IndexController extends Controller
     public function ProductDetails($id)
     {
         $product = Product::findOrFail($id);
-        return view('frontend.product.product_details', compact('product'));
+        $multiImag = MultiImg::where('product_id', $id)->get();
+        return view('frontend.product.product_details', compact('product', 'multiImag'));
     }
 }

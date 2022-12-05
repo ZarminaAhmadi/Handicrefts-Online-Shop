@@ -11,7 +11,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SlidshowController;
-    
+
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\SubCatController;
 use App\Http\Controllers\Frontend\CartController;

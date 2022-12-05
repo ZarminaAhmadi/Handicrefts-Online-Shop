@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
-use App\Models\SubSubCategory;
+use App\Models\UnderSubCategory;
 use App\Models\Brand;
 
 use App\Models\Product;
@@ -243,12 +243,12 @@ class ProductController extends Controller
     public function ProductDelete($id)
     {
         $product = Product::findOrFail($id);
-        unlink($product->product_thambnail);
+        //unlink($product->product_thambnail);
         Product::findOrFail($id)->delete();
 
         $images = MultiImg::where('product_id', $id)->get();
         foreach ($images as $img) {
-            unlink($img->photo_name);
+            //unlink($img->photo_name);
             MultiImg::where('product_id', $id)->delete();
         }
 

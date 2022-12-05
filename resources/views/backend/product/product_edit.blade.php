@@ -308,10 +308,10 @@
                                     <div class="col-md-3">
 
                                         <div class="card">
-                                            @foreach ($img as $imgs)
+                                            {{-- @foreach ($img as $imgs)
                                                 <img src="{{ asset($imgs->photo_name) }}" class="card-img-top"
                                                     style="height: 130px; width: 280px;">
-                                            @endforeach
+                                            @endforeach --}}
                                             <div class="card-body">
                                                 <h5 class="card-title">
                                                     <a href="{{ route('product.multiimg.delete', $img->id) }}"
@@ -330,7 +330,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> <!-- end col 3-->
                                     }
                                 @endforeach
 
@@ -346,6 +346,8 @@
 
 
                         </form>
+
+
 
 
 
@@ -455,26 +457,26 @@
                     alert('danger');
                 }
             });
-            // $('select[name="subcategory_id"]').on('change', function() {
-            //     var subcategory_id = $(this).val();
-            //     if (subcategory_id) {
-            //         $.ajax({
-            //             url: "{{ url('/category/sub-subcategory/ajax') }}/" + subcategory_id,
-            //             type: "GET",
-            //             dataType: "json",
-            //             success: function(data) {
-            //                 var d = $('select[name="subsubcategory_id"]').empty();
-            //                 $.each(data, function(key, value) {
-            //                     $('select[name="subsubcategory_id"]').append(
-            //                         '<option value="' + value.id + '">' + value
-            //                         .subsubcategory_name_en + '</option>');
-            //                 });
-            //             },
-            //         });
-            //     } else {
-            //         alert('danger');
-            //     }
-            // });
+            $('select[name="subcategory_id"]').on('change', function() {
+                var subcategory_id = $(this).val();
+                if (subcategory_id) {
+                    $.ajax({
+                        url: "{{ url('/category/undersubcategory/ajax') }}/" + subcategory_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            var d = $('select[name="undersubcategory_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name= undersubcategory_id"]').append(
+                                    '<option value="' + value.id + '">' + value
+                                    .undersubcategory_name_en + '</option>');
+                            });
+                        },
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
 
         });
     </script>
